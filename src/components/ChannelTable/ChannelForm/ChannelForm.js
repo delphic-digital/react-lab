@@ -9,6 +9,7 @@ export default class ChannelForm extends React.Component {
 
 	init(){
 		this.state = {zip : ''};
+
 	}
 
 	handleZipChange(e) {

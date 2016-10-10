@@ -32,9 +32,12 @@ class ChannelTable extends React.Component {
 	}
 
 	render() {
+
 		return (
 		<div className="channel-table">
 			<h2>Channels</h2>
+			{this.props.coords && this.props.coords.latitude}
+			{this.props.coords && this.props.coords.longitude}
 			<ChannelForm onZipSubmit={zip => this.handleZipSubmit(zip)} />
 			<ChannelList data={this.state.data} />
 		</div>
