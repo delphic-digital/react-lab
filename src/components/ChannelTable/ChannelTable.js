@@ -1,5 +1,6 @@
 import React from 'react';
 import ChannelForm from './ChannelForm/ChannelForm.js'
+import ChannelList from './ChannelList/ChannelList.js'
 
 export default class ChannelTable extends React.Component {
 
@@ -22,6 +23,7 @@ export default class ChannelTable extends React.Component {
 	handleZipSubmit(zip) {
 		//let data = this.state.data;\
 		console.log('submit zip code: ',zip)
+		this.loadChannels()
 	}
 
 	componentDidMount() {
@@ -33,6 +35,7 @@ export default class ChannelTable extends React.Component {
 		<div className="channel-table">
 			<h2>Channels</h2>
 			<ChannelForm onZipSubmit={zip => this.handleZipSubmit(zip)} />
+			<ChannelList data={this.state.data} />
 		</div>
 		);
 	}
