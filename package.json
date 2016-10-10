@@ -12,7 +12,8 @@
     "name": "react-lab",
     "main": "react-lab.js",
     "dependencies": {
-      "react-dom": "npm:react-dom@^15.3.2"
+      "react-dom": "npm:react-dom@^15.3.2",
+      "react-geolocated": "npm:react-geolocated@^0.5.0"
     },
     "devDependencies": {
       "babel-plugin-transform-react-jsx": "npm:babel-plugin-transform-react-jsx@^6.8.0",

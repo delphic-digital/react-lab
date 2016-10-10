@@ -1,8 +1,9 @@
 import React from 'react';
+import {geolocated} from 'react-geolocated';
 import ChannelForm from './ChannelForm/ChannelForm.js'
 import ChannelList from './ChannelList/ChannelList.js'
 
-export default class ChannelTable extends React.Component {
+class ChannelTable extends React.Component {
 
 	constructor (props) {
 		super(props)
@@ -10,7 +11,7 @@ export default class ChannelTable extends React.Component {
 	}
 
 	init(){
-		this.state = { data: [] }
+		this.state = { data: [] };
 	}
 
 	loadChannels() {
@@ -40,3 +41,11 @@ export default class ChannelTable extends React.Component {
 		);
 	}
 }
+
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+  geolocationProvider: navigator.geolocation
+})(ChannelTable);
