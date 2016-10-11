@@ -1,9 +1,9 @@
 import React from 'react';
-import {geolocated} from 'react-geolocated';
+import ZipLookup from './ZipLookup/ZipLookup.js'
 import ChannelForm from './ChannelForm/ChannelForm.js'
 import ChannelList from './ChannelList/ChannelList.js'
 
-class ChannelTable extends React.Component {
+export default class ChannelTable extends React.Component {
 
 	constructor (props) {
 		super(props)
@@ -19,36 +19,29 @@ class ChannelTable extends React.Component {
 		.then(response => response.json())
 		.then(data => this.setState({ data: data }))
 		.catch(err => console.error(this.props.url, err.toString()))
-  }
-
-	handleZipSubmit(zip) {
-		//let data = this.state.data;\
-		console.log('submit zip code: ',zip)
-		this.loadChannels()
 	}
 
-	componentDidMount() {
+	//Recieves reverse geolocated zip code
+	handleZipLookup(zip) {
+		console.log('geo recieved zip: ', zip)
+	}
+
+	handleZipSubmit(zip) {
+		console.log('submit zip code: ',zip)
 		//this.loadChannels()
 	}
 
-	render() {
+	componentDidMount() {
+	}
 
+	render() {
 		return (
-		<div className="channel-table">
-			<h2>Channels</h2>
-			{this.props.coords && this.props.coords.latitude}
-			{this.props.coords && this.props.coords.longitude}
-			<ChannelForm onZipSubmit={zip => this.handleZipSubmit(zip)} />
-			<ChannelList data={this.state.data} />
-		</div>
+			<div className="channel-table">
+				<h2>Channels</h2>
+				<ZipLookup onZipRecieve={zip => this.handleZipLookup(zip)} url="https://maps.googleapis.com/maps/api/geocode/json" />
+				<ChannelForm onZipSubmit={zip => this.handleZipSubmit(zip)} />
+				<ChannelList data={this.state.data} />
+			</div>
 		);
 	}
 }
-
-export default geolocated({
-  positionOptions: {
-    enableHighAccuracy: false,
-  },
-  userDecisionTimeout: 5000,
-  geolocationProvider: navigator.geolocation
-})(ChannelTable);
