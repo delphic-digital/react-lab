@@ -65,7 +65,7 @@ export default class ChannelTable extends React.Component {
 		return (
 			<div className="channel-table">
 				<h2>Channels</h2>
-				{this.state.lat}{this.state.long}
+				<span>lat:{this.state.lat}</span>, <span>long:</span>{this.state.long}
 				<ChannelForm onZipSubmit={zip => this.handleZipSubmit(zip)} onZipChange={zip => this.handleZipChange(zip)} zip={this.state.zip}  />
 				<ChannelList data={this.state.data} />
 			</div>
