@@ -4,11 +4,6 @@ export default class ChannelForm extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.init();
-	}
-
-	init(){
-
 	}
 
 	onZipChange(e) {

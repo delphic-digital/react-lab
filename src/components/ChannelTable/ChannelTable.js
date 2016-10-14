@@ -17,18 +17,6 @@ export default class ChannelTable extends React.Component {
 		this.geoLocate();
 	}
 
-	componentDidMount() {}
-
-	handleZipSubmit(e) {
-		e.preventDefault();
-		console.log('submit zip code: ',this.state.zip)
-		this.fetchChannels();
-	}
-
-	handleZipChange(zip) {
-		this.setState({zip:zip})
-	}
-
 	geoLocate(){
 		//Some ideas
 		//https://github.com/no23reason/react-geolocated/blob/master/src/components/geolocated.js
@@ -42,6 +30,16 @@ export default class ChannelTable extends React.Component {
 				},()=>this.fetchZip());
       });
     }
+	}
+
+	handleZipSubmit(e) {
+		e.preventDefault();
+		console.log('submit zip code: ',this.state.zip)
+		this.fetchChannels();
+	}
+
+	handleZipChange(zip) {
+		this.setState({zip:zip})
 	}
 
 	fetchZip(){
