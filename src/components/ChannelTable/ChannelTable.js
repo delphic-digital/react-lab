@@ -1,7 +1,9 @@
 import React from 'react';
-import ZipLookup from './ZipLookup/ZipLookup.js'
 import ChannelForm from './ChannelForm/ChannelForm.js'
 import ChannelList from './ChannelList/ChannelList.js'
+
+//http://andrewhfarmer.com/react-ajax-best-practices/#1-root-component
+//https://github.com/calitek/ReactPatterns
 
 export default class ChannelTable extends React.Component {
 
@@ -12,34 +14,61 @@ export default class ChannelTable extends React.Component {
 
 	init(){
 		this.state = { data: [] };
+		this.geoLocate();
 	}
 
-	loadChannels() {
-		fetch(this.props.url)
+	componentDidMount() {}
+
+	handleZipSubmit(e) {
+		e.preventDefault();
+		console.log('submit zip code: ',this.state.zip)
+		this.fetchChannels();
+	}
+
+	handleZipChange(zip) {
+		this.setState({zip:zip})
+	}
+
+	geoLocate(){
+		//Some ideas
+		//https://github.com/no23reason/react-geolocated/blob/master/src/components/geolocated.js
+		let geolocationProvider = (typeof (navigator) !== 'undefined' && navigator.geolocation);
+
+		if (geolocationProvider) {
+      geolocationProvider.getCurrentPosition((position)=>{
+      	this.setState({
+					lat: position.coords.latitude,
+					long: position.coords.longitude
+				},()=>this.fetchZip());
+      });
+    }
+	}
+
+	fetchZip(){
+		fetch(`${this.props.zipLocateURL}?latlng=${this.state.lat},${this.state.long}`)
+			.then(response => response.json())
+			.then(data => {
+				let zip = data.results[0].address_components.find(x => x['types'][0] == 'postal_code').long_name;
+				this.setState({zip:zip})
+			})
+			.catch(function (error) {
+				console.log('Request failed', error);
+		});
+	}
+
+	fetchChannels() {
+		fetch(this.props.channelsURL)
 		.then(response => response.json())
 		.then(data => this.setState({ data: data }))
 		.catch(err => console.error(this.props.url, err.toString()))
-	}
-
-	//Recieves reverse geolocated zip code
-	handleZipLookup(zip) {
-		console.log('geo recieved zip: ', zip)
-	}
-
-	handleZipSubmit(zip) {
-		console.log('submit zip code: ',zip)
-		//this.loadChannels()
-	}
-
-	componentDidMount() {
 	}
 
 	render() {
 		return (
 			<div className="channel-table">
 				<h2>Channels</h2>
-				<ZipLookup onZipRecieve={zip => this.handleZipLookup(zip)} url="https://maps.googleapis.com/maps/api/geocode/json" />
-				<ChannelForm onZipSubmit={zip => this.handleZipSubmit(zip)} />
+				{this.state.lat}{this.state.long}
+				<ChannelForm onZipSubmit={zip => this.handleZipSubmit(zip)} onZipChange={zip => this.handleZipChange(zip)} zip={this.state.zip}  />
 				<ChannelList data={this.state.data} />
 			</div>
 		);
