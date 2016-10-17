@@ -12,8 +12,9 @@
     "name": "react-lab",
     "main": "react-lab.js",
     "dependencies": {
+      "es6-promise": "npm:es6-promise@^4.0.5",
       "react-dom": "npm:react-dom@^15.3.2",
-      "react-geolocated": "npm:react-geolocated@^0.5.0"
+      "whatwg-fetch": "npm:whatwg-fetch@^1.0.0"
     },
     "devDependencies": {
       "babel-plugin-transform-react-jsx": "npm:babel-plugin-transform-react-jsx@^6.8.0",
@@ -67,7 +68,8 @@
   },
   "scripts": {
     "start": "npm-run-all --parallel serve",
-    "serve": "browser-sync start --server --files src/**/*"
+    "serve": "browser-sync start --server --files src/**/*",
+    "build": "jspm build src/main.js dist/main.js"
   },
   "author": "",
   "license": "ISC"

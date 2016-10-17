@@ -21,15 +21,23 @@ export default class ChannelTable extends React.Component {
 		//Some ideas
 		//https://github.com/no23reason/react-geolocated/blob/master/src/components/geolocated.js
 		let geolocationProvider = (typeof (navigator) !== 'undefined' && navigator.geolocation);
-
 		if (geolocationProvider) {
-      geolocationProvider.getCurrentPosition((position)=>{
-      	this.setState({
+			let options = {
+				enableHighAccuracy: false,
+				timeout: 5000,
+				maximumAge: 0
+			}
+			geolocationProvider.getCurrentPosition((position)=>{
+
+				this.setState({
 					lat: position.coords.latitude,
 					long: position.coords.longitude
 				},()=>this.fetchZip());
-      });
-    }
+			},
+			(error)=>console.error(error.message),
+			options
+			);
+		}
 	}
 
 	handleZipSubmit(e) {
@@ -45,7 +53,7 @@ export default class ChannelTable extends React.Component {
 	fetchZip(){
 		fetch(`${this.props.zipLocateURL}?latlng=${this.state.lat},${this.state.long}`)
 			.then(response => response.json())
-			.then(data => {
+			.then(data => { console.log(data)
 				let zip = data.results[0].address_components.find(x => x['types'][0] == 'postal_code').long_name;
 				this.setState({zip:zip})
 			})
