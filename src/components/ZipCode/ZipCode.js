@@ -1,8 +1,8 @@
 import React from 'react';
 import PubSub from 'pubsub-js';
-import ChannelForm from './ChannelForm.js'
+import ZipCodeForm from './ZipCodeForm/ZipCodeForm.js'
 
-export default class ChannelFormContainer extends React.Component {
+export default class ZipCode extends React.Component {
 
 	constructor (props) {
 		super(props)
@@ -10,7 +10,7 @@ export default class ChannelFormContainer extends React.Component {
 	}
 
 	init(){
-		this.state = { data: [] };
+		this.state = {};
 		this.geoLocate();
 	}
 
@@ -49,7 +49,6 @@ export default class ChannelFormContainer extends React.Component {
 		});
 	}
 
-
 	handleZipSubmit(e) {
 		e.preventDefault();
 		console.log('fetch channels in channels component with zip:',this.state.zip);
@@ -67,7 +66,7 @@ export default class ChannelFormContainer extends React.Component {
 		return (
 			<div className="channel-form">
 				<span>lat:{this.state.lat}</span>, <span>long:</span>{this.state.long}
-				<ChannelForm onZipSubmit={zip => this.handleZipSubmit(zip)} onZipChange={zip => this.handleZipChange(zip)} zip={this.state.zip}  />
+				<ZipCodeForm onZipSubmit={zip => this.handleZipSubmit(zip)} onZipChange={zip => this.handleZipChange(zip)} zip={this.state.zip}  />
 			</div>
 		);
 	}

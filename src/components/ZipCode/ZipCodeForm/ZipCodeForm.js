@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class ChannelForm extends React.Component {
+export default class ZipCodeForm extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -18,7 +18,7 @@ export default class ChannelForm extends React.Component {
 	render(){
 		return (
 			<form className="zip-form" onSubmit={(e) => this.props.onZipSubmit(e)}>
-				<input type="text" placeholder="Zipcode" pattern="\d{5}-?(\d{4})?" value={this.props.zip || ''} onChange={(e) => this.onZipChange(e)} />
+				<input type="text" placeholder="Enter Zip Code" pattern="\d{5}-?(\d{4})?" value={this.props.zip || ''} onChange={(e) => this.onZipChange(e)} />
 				<input type="submit" value="Submit" />
 			</form>
 		)

@@ -18,13 +18,13 @@ export default class ChannelTable extends React.Component {
 
 	componentWillMount(){
 		// when React renders me, I subscribe to the topic 'zip'
-    // .subscribe returns a unique token necessary to unsubscribe
-    this.pubsub_token = PubSub.subscribe('zip', (topic, zip) => this.setState({ zip: zip },()=>this.fetchChannels()));
+		// .subscribe returns a unique token necessary to unsubscribe
+		this.pubsub_token = PubSub.subscribe('zip', (topic, zip) => this.setState({ zip: zip },()=>this.fetchChannels()));
 	}
 
 	componentWillUnmount(){
 		// React removed me from the DOM, I have to unsubscribe from the pubsub using my token
-    pubsub.unsubscribe(this.pubsub_token);
+		pubsub.unsubscribe(this.pubsub_token);
 	}
 
 	fetchChannels() {

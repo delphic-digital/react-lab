@@ -2,13 +2,13 @@ import { polyfill } from 'es6-promise';
 import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM     from 'react-dom';
-import ChannelFormContainer from './components/ChannelForm/ChannelFormContainer.js';
+import ZipCode from './components/ZipCode/ZipCode.js';
 import ChannelTable from './components/ChannelTable/ChannelTable.js';
 
 //console.info(`React js version : ${React.version}`);
 
 ReactDOM.render(
-	<ChannelFormContainer zipLocateURL="https://maps.googleapis.com/maps/api/geocode/json"/>,
+	<ZipCode zipLocateURL="https://maps.googleapis.com/maps/api/geocode/json"/>,
 	document.getElementById('zip-form')
 );
 
