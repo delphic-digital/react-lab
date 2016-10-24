@@ -83,6 +83,7 @@ SystemJS.config({
     "os": "github:jspm/nodelibs-os@0.2.0-alpha",
     "path": "github:jspm/nodelibs-path@0.2.0-alpha",
     "process": "github:jspm/nodelibs-process@0.2.0-alpha",
+    "pubsub-js": "npm:pubsub-js@1.5.4",
     "react": "npm:react@15.3.2",
     "react-dom": "npm:react-dom@15.3.2",
     "stream": "github:jspm/nodelibs-stream@0.2.0-alpha",
