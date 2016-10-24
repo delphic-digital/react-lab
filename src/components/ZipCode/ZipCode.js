@@ -53,8 +53,10 @@ export default class ZipCode extends React.Component {
 		e.preventDefault();
 		console.log('fetch channels in channels component with zip:',this.state.zip);
 
+		//This will publish the zipcode to the global event system. Channels fetch is subscribed to it.
 		PubSub.publish('zip', this.state.zip);
-		//this.fetchChannels();
+
+		console.info('todo: hide form and replace with change zip button')
 	}
 
 	handleZipChange(zip) {
