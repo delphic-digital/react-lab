@@ -13,7 +13,7 @@ export default class ChannelTable extends React.Component {
 	}
 
 	init(){
-		this.state = { data: [] };
+		this.state = {channels:[]};
 	}
 
 	componentWillMount(){
@@ -27,10 +27,10 @@ export default class ChannelTable extends React.Component {
 		pubsub.unsubscribe(this.pubsub_token);
 	}
 
-	fetchChannels() {
+	fetchChannels() { console.log('fetch channels for zip', this.state.zip)
 		fetch(this.props.channelsURL)
 		.then(response => response.json())
-		.then(data => this.setState({ data: data }))
+		.then(data => this.setState({ channels: data }))
 		.catch(err => console.error(this.props.url, err.toString()))
 	}
 
@@ -38,7 +38,7 @@ export default class ChannelTable extends React.Component {
 		return (
 			<div className="channel-table">
 				<h2>Channels</h2>
-				<ChannelList data={this.state.data} />
+				<ChannelList data={this.state.channels} />
 			</div>
 		);
 	}

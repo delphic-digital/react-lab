@@ -1,6 +1,7 @@
 import React from 'react';
 import PubSub from 'pubsub-js';
 import ZipCodeForm from './ZipCodeForm/ZipCodeForm.js'
+import ZipCodeChange from './ZipCodeChange/ZipCodeChange.js'
 
 export default class ZipCode extends React.Component {
 
@@ -51,24 +52,37 @@ export default class ZipCode extends React.Component {
 
 	handleZipSubmit(e) {
 		e.preventDefault();
-		console.log('fetch channels in channels component with zip:',this.state.zip);
 
-		//This will publish the zipcode to the global event system. Channels fetch is subscribed to it.
-		PubSub.publish('zip', this.state.zip);
+		//Store submitted zip value for showing or hiding the change zip form.
+		this.setState({currentZip:this.state.zip},()=>{
 
-		console.info('todo: hide form and replace with change zip button')
+			//This will publish the zipcode to the global event system. Channels fetch is subscribed to it.
+			PubSub.publish('zip', this.state.zip);
+
+		});
+
+
 	}
 
 	handleZipChange(zip) {
 		this.setState({zip:zip})
 	}
 
+	handleZipDestroy() {
+		this.setState({zip:'',currentZip:''})
+	}
+
 
 	render() {
 		return (
 			<div className="channel-form">
-				<span>lat:{this.state.lat}</span>, <span>long:</span>{this.state.long}
-				<ZipCodeForm onZipSubmit={zip => this.handleZipSubmit(zip)} onZipChange={zip => this.handleZipChange(zip)} zip={this.state.zip}  />
+				{/*<span>lat:{this.state.lat}</span>, <span>long:</span>{this.state.long}*/}
+
+				{
+					this.state.currentZip ?
+						<ZipCodeChange zip={this.state.zip} onZipDestroy={this.handleZipDestroy.bind(this)} /> :
+						<ZipCodeForm onZipSubmit={zip => this.handleZipSubmit(zip)} onZipChange={zip => this.handleZipChange(zip)} zip={this.state.zip}  />
+				}
 			</div>
 		);
 	}
