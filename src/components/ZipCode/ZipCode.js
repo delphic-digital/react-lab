@@ -27,6 +27,8 @@ export default class ZipCode extends React.Component {
 			}
 			geolocationProvider.getCurrentPosition((position)=>{
 
+
+
 				this.setState({
 					lat: position.coords.latitude,
 					long: position.coords.longitude
@@ -42,6 +44,7 @@ export default class ZipCode extends React.Component {
 		fetch(`${this.props.zipLocateURL}?latlng=${this.state.lat},${this.state.long}`)
 			.then(response => response.json())
 			.then(data => {
+				console.log(data)
 				let zip = data.results[0].address_components.find(x => x['types'][0] == 'postal_code').long_name;
 				this.setState({zip:zip})
 			})
